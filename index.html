@@ -1,44 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Tip calculator app</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="./assets/css/normalize.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
+    <title>Frontend Mentor | Tip calculator app</title>
+  </head>
+  <body>
+    <main>
+      <img src="./assets/images/logo.svg" alt="logo" />
+      <section class="tipCalculator">
+        <section class="calculations">
+          <article class="billAmount">
+            <p class="InputName">Bill</p>
+            <section class="inputComponent">
+              <input
+                placeholder=""
+                type="text"
+                name="billAmountInput"
+                id="billAmountInput"
+                autocomplete="off"
+              />
+              <label for="billAmountInput">
+                <img src="./assets/images/icon-dollar.svg" alt="" />
+                <span>0</span>
+              </label>
+            </section>
+          </article>
 
-  Bill
+          <article class="tipAmount">
+            <p class="InputName">Select Tip %</p>
+            <section class="tipSelector">
+              <button class="tipAmountBtn" value="5">5%</button>
+              <button class="tipAmountBtn" value="10">10%</button>
+              <button class="tipAmountBtn" value="15">15%</button>
+              <button class="tipAmountBtn" value="25">25%</button>
+              <button class="tipAmountBtn" value="50">50%</button>
+              <input class="customTipAmount" type="text" placeholder="custom" />
+            </section>
+          </article>
 
-  Select Tip %
-  5%
-  10%
-  15%
-  25%
-  50%
-  Custom
-
-  Number of People
-
-  Tip Amount
-  / person
-
-  Total
-  / person
-
-  Reset
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+          <article class="numberOfPeople">
+            <p class="InputName">Number of People</p>
+            <section class="inputComponent">
+              <input
+                placeholder=""
+                type="text"
+                name="billAmountInput"
+                id="billAmountInput"
+                autocomplete="off"
+              />
+              <label for="billAmountInput">
+                <img src="./assets/images/icon-person.svg" alt="" />
+                <span>0</span>
+              </label>
+            </section>
+          </article>
+        </section>
+        <section class="results">
+          Tip Amount / person Total / person Reset
+        </section>
+      </section>
+    </main>
+  </body>
 </html>
+
+<script src="./getAllClasses.js" defer></script>
+<script src="./index.js" defer></script>

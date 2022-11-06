@@ -1,0 +1,180 @@
+:root {
+  --Strong_cyan: #26c0ab;
+  --Very_dark_cyan: #00494d;
+  --Dark_grayish_cyan: #5e7a7d;
+  --Grayish_cyan: #7f9c9f;
+  --Light_grayish_cyan: #c5e4e7;
+  --Very_light_grayish_cyan: #f4fafa;
+  --White: #ffffff;
+}
+
+@font-face {
+  font-family: "";
+  src: url("");
+  /* font-weight: ; */
+}
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+body {
+  background-color: var(--Light_grayish_cyan);
+  font-family: "Space Mono", monospace;
+  height: 100%;
+}
+
+input {
+  font-size: 24px;
+  caret-color: var(--Strong_cyan);
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 85px;
+}
+
+.calculations {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 45px;
+}
+
+.tipCalculator {
+  background-color: var(--White);
+  border-radius: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 30px 35px 30px 45px;
+  gap: 45px;
+  max-width: 850px;
+}
+
+/*input*/
+
+.billAmount,
+.numberOfPeople,
+.tipAmount {
+  width: 100%;
+}
+
+.InputName {
+  color: var(--Dark_grayish_cyan);
+
+  margin-bottom: 10px;
+}
+
+.inputComponent {
+  width: 100%;
+  font-size: 16px;
+}
+
+.inputComponent > label {
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  position: relative;
+  bottom: 1.3rem;
+}
+
+.inputComponent > label > img {
+  position: absolute;
+  left: 1rem;
+}
+.inputComponent > label > span {
+  color: var(--Grayish_cyan);
+
+  position: absolute;
+  right: 1rem;
+}
+
+.inputComponent input {
+  padding: 1.4rem 1rem 1.4rem 1.85rem;
+  border-radius: 2px;
+  width: 100%;
+  border: none;
+  background-color: var(--Very_light_grayish_cyan);
+  height: 2rem;
+  direction: rtl;
+  color: var(--Very_dark_cyan);
+  font-weight: 500;
+}
+
+.inputComponent input::placeholder {
+  text-indent: 1rem;
+}
+
+.inputComponent input:not(:placeholder-shown) + label > span {
+  display: none;
+}
+
+
+.inputComponent input:focus,
+.customTipAmount:focus {
+  outline: none;
+  outline: var(--Strong_cyan) 2px solid;
+}
+
+/*tipSelector*/
+
+.tipSelector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 20px;
+}
+
+.tipAmountBtn,
+.customTipAmount {
+  background-color: var(--Very_dark_cyan);
+  border: none;
+  border-radius: 5px;
+  color: var(--White);
+  cursor: pointer;
+  font-size: 24px;
+  padding: 0.25em 0px;
+}
+
+.tipAmountBtn:hover {
+  background-color: var(--Light_grayish_cyan);
+  color: var(--Very_dark_cyan);
+}
+
+.tipAmountBtn.selected {
+  background-color: var(--Strong_cyan);
+  color: var(--Very_dark_cyan);
+}
+
+.customTipAmount {
+  background-color: var(--Very_light_grayish_cyan);
+  color: var(--Very_dark_cyan);
+  direction: rtl;
+  text-indent: 10px;
+}
+.customTipAmount::placeholder {
+  color: var(--Dark_grayish_cyan);
+}
+
+/*results*/
+
+.results {
+  border-radius: 12px;
+  background-color: var(--Very_dark_cyan);
+}

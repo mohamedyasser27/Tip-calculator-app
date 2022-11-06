@@ -47,6 +47,9 @@ Users should be able to:
 
 ### What I learned
 
+- use direction:rtl to reverse input start
+- use label to create a custom placeholder for inputs
+
 ### Continued development
 
 ### Useful resources
