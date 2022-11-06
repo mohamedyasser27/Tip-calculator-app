@@ -49,6 +49,7 @@ Users should be able to:
 
 - use direction:rtl to reverse input start
 - use label to create a custom placeholder for inputs
+- using br to achieve instead of flexbox to achieve multi-line design (refer to results --> valueArea in HTML)
 
 ### Continued development
 
