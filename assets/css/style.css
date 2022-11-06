@@ -43,7 +43,7 @@ input {
 
 main {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,9 +70,9 @@ main {
 
 /*input*/
 
-.billAmount,
+.billAmountArea,
 .numberOfPeople,
-.tipAmount {
+.tipAmountArea {
   width: 100%;
 }
 
@@ -126,7 +126,6 @@ main {
   display: none;
 }
 
-
 .inputComponent input:focus,
 .customTipAmount:focus {
   outline: none;
@@ -168,6 +167,10 @@ main {
   direction: rtl;
   text-indent: 10px;
 }
+.customTipAmount:focus:hover {
+  cursor: initial;
+}
+
 .customTipAmount::placeholder {
   color: var(--Dark_grayish_cyan);
 }
@@ -177,4 +180,54 @@ main {
 .results {
   border-radius: 12px;
   background-color: var(--Very_dark_cyan);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.valueArea {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.valueArea .Amount {
+  font-size: 3rem;
+  color: var(--Strong_cyan);
+}
+
+.valueArea span {
+  color: var(--Grayish_cyan);
+  font-size: 0.7rem;
+}
+
+.resetBtn {
+  border: none;
+  border-radius: 5px;
+  background-color: var(--Strong_cyan);
+  color: var(--Very_dark_cyan);
+  cursor: pointer;
+  padding: 0.7em 0;
+  margin-top: auto;
+  text-transform: uppercase;
+}
+
+.resetBtn:hover {
+  background-color: var(--Light_grayish_cyan);
+}
+
+main{
+  gap: 45px;
+}
+
+@media only screen and (max-width: 700px) {
+  .tipCalculator {
+    display: grid;
+    grid-template-columns: initial;
+    grid-template-rows: 2fr 1fr;
+    gap: 45px;
+    max-width: 650px;
+    width: 90%;
+  }
 }

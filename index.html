@@ -27,7 +27,7 @@
       <img src="./assets/images/logo.svg" alt="logo" />
       <section class="tipCalculator">
         <section class="calculations">
-          <article class="billAmount">
+          <article class="billAmountArea">
             <p class="InputName">Bill</p>
             <section class="inputComponent">
               <input
@@ -44,7 +44,7 @@
             </section>
           </article>
 
-          <article class="tipAmount">
+          <article class="tipAmountArea">
             <p class="InputName">Select Tip %</p>
             <section class="tipSelector">
               <button class="tipAmountBtn" value="5">5%</button>
@@ -74,7 +74,15 @@
           </article>
         </section>
         <section class="results">
-          Tip Amount / person Total / person Reset
+          <article class="valueArea" id="TipAmountValue">
+            <p class="title">Tip Amount<br /><span>/ person</span></p>
+            <p class="Amount">&#36;0.00</p>
+          </article>
+          <article class="valueArea" id="perPersonValue">
+            <p class="title">Total<br /><span>/ person</span></p>
+            <p class="Amount">&#36;0.00</p>
+          </article>
+          <button class="resetBtn">reset</button>
         </section>
       </section>
     </main>
