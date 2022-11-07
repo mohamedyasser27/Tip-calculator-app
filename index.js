@@ -7,7 +7,7 @@ const domManipulationModule = (function () {
   let customTipAmount = document.querySelector(".customTipAmount");
   let resetBtn = document.querySelector(".resetBtn");
 
-  let selectedPercentage = null;//detect which percentage is selected
+  let selectedPercentage = null; //detect which percentage is selected
 
   function checkAllInputExistence(billAmount, numberOfPeopleInput) {
     if (numberOfPeopleInput == 0) {
@@ -72,9 +72,9 @@ const domManipulationModule = (function () {
 
   customTipAmount.addEventListener("keydown", (e) => {
     if (
-      e.keyCode == 190 ||
-      e.keyCode == 8 ||
-      (e.keyCode >= 48 && e.keyCode <= 57)
+      e.key.search(/\./) == 0 ||
+      e.key.search(/[0-9]/) == 0 ||
+      e.key.search(/Backspace/) == 0
     ) {
       selectTipAmount(e.target);
       checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
@@ -85,9 +85,9 @@ const domManipulationModule = (function () {
 
   billAmountInput.addEventListener("keydown", (e) => {
     if (
-      e.keyCode == 190 ||
-      e.keyCode == 8 ||
-      (e.keyCode >= 48 && e.keyCode <= 57)
+      e.key.search(/\./) == 0 ||
+      e.key.search(/[0-9]/) == 0 ||
+      e.key.search(/Backspace/) == 0
     ) {
       checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
     } else {
@@ -95,11 +95,11 @@ const domManipulationModule = (function () {
     }
   });
 
-  numberOfPeopleInput.addEventListener("keyup", (e) => {
+  numberOfPeopleInput.addEventListener("keydown", (e) => {
     if (
-      e.keyCode == 190 ||
-      e.keyCode == 8 ||
-      (e.keyCode >= 48 && e.keyCode <= 57)
+      e.key.search(/\./) == 0 ||
+      e.key.search(/[0-9]/) == 0 ||
+      e.key.search(/Backspace/) == 0
     ) {
       toggleInvalidClass();
       checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
