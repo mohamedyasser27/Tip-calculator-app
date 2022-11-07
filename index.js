@@ -1,16 +1,3 @@
-/*
- * 1) if BillAmount,TipAmount,Number of people --> not empty
- * calculate results
- * 2) price_per_person=total/number of people
- * 3) tip=(percentage * total)/number_of_people
- * 4) total(with tip)=price_per_person+tip
- *
- *input:total,number_of_people
- * output:tip_Amount,total_per_person
- *
- *
- */
-
 let billAmountInput = document.querySelector("#billAmountInput");
 let numberOfPeopleInput = document.querySelector("#numberOfPeopleInput");
 let alltipSelectors = Array.from(
@@ -22,13 +9,16 @@ let customTipAmount = document.querySelector(".customTipAmount");
 let resetBtn = document.querySelector(".resetBtn");
 
 window.onload = function () {
-    resetBtn.disabled=true
-}
+  resetBtn.disabled = true;
+};
 
-function checkAll(billAmount, numberOfPeopleInput) {
+function checkAllInputExistence(billAmount, numberOfPeopleInput) {
+  if (numberOfPeopleInput == 0) {
+    showTipAmountOnDOM(0.0, 0.0);
+  }
   let tipPercentage;
   if (selectedPercentage == null) {
-    tipPercentage = 1;
+    tipPercentage = 0;
   } else {
     tipPercentage = selectedPercentage.value;
   }
@@ -37,55 +27,84 @@ function checkAll(billAmount, numberOfPeopleInput) {
     Number(numberOfPeopleInput) &&
     Number(tipPercentage)
   ) {
-    let price_per_person = billAmount / numberOfPeopleInput;
-    price_per_person = price_per_person.toFixed(2);
+    let tipAmount = calculateTipPerPerson(
+      billAmount,
+      numberOfPeopleInput,
+      tipPercentage
+    );
+    let total = calculateTotalPerPerson(
+      billAmount,
+      numberOfPeopleInput,
+      tipAmount
+    );
 
-    let tipAmount = (Number(tipPercentage) * Number(billAmount)) / 100;
-
-    tipAmount /= Number(numberOfPeopleInput);
-    tipAmount = tipAmount.toFixed(2);
-    let total = (Number(tipAmount) + Number(price_per_person)).toFixed(2);
-
-    document.querySelector(
-      "#TipAmountValue .Amount"
-    ).textContent = `${tipAmount}`;
-    document.querySelector("#perPersonValue .Amount").textContent = `${total}`;
-    console.log(resetBtn);
+    showTipAmountOnDOM(tipAmount, total);
     resetBtn.disabled = false;
   }
+}
+
+function calculatePricePerPersonNOTAXES(billAmount, numberOfPeopleInput) {
+  let price_per_person = billAmount / numberOfPeopleInput;
+  price_per_person = price_per_person;
+  return price_per_person;
+}
+
+function calculateTipPerPerson(billAmount, numberOfPeopleInput, tipPercentage) {
+  let tipAmount = (Number(tipPercentage) * Number(billAmount)) / 100;
+  tipAmount /= Number(numberOfPeopleInput);
+  tipAmount = tipAmount.toFixed(2);
+
+  return +tipAmount;
+}
+
+function calculateTotalPerPerson(billAmount, numberOfPeopleInput, tipAmount) {
+  let price_per_person = calculatePricePerPersonNOTAXES(
+    billAmount,
+    numberOfPeopleInput
+  );
+  let total = (Number(tipAmount) + Number(price_per_person)).toFixed(2);
+
+  return +total;
+}
+
+function selectTipAmountOnDOM(target) {
+  if (selectedPercentage == null) {
+    selectedPercentage = target;
+    target.classList.add("selected");
+  } else {
+    selectedPercentage.classList.remove("selected");
+    target.classList.add("selected");
+    selectedPercentage = target;
+  }
+}
+
+function showTipAmountOnDOM(tipAmount, total) {
+  document.querySelector(
+    "#TipAmountValue .Amount"
+  ).textContent = `$${tipAmount.toFixed(2)}`;
+
+  document.querySelector(
+    "#perPersonValue .Amount"
+  ).textContent = `$${total.toFixed(2)}`;
 }
 
 alltipSelectors.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
-    if (selectedPercentage == null) {
-      selectedPercentage = e.target;
-      e.target.classList.add("selected");
-    } else {
-      selectedPercentage.classList.remove("selected");
-      e.target.classList.add("selected");
-      selectedPercentage = e.target;
-    }
-    checkAll(billAmountInput.value, numberOfPeopleInput.value);
+    selectTipAmountOnDOM(e.target);
+    checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
     customTipAmount.value = "";
   });
 });
 
-customTipAmount.addEventListener("keyup", (e) => {
+customTipAmount.addEventListener("keydown", (e) => {
   if (
     e.keyCode == 190 ||
     e.keyCode == 8 ||
     (e.keyCode >= 48 && e.keyCode <= 57)
   ) {
-    if (selectedPercentage == null) {
-      selectedPercentage = e.target;
-      e.target.classList.add("selected");
-    } else {
-      selectedPercentage.classList.remove("selected");
-      e.target.classList.add("selected");
-      selectedPercentage = e.target;
-    }
-    checkAll(billAmountInput.value, numberOfPeopleInput.value);
+    selectTipAmountOnDOM(e.target);
+    checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
   } else {
     e.preventDefault();
   }
@@ -97,7 +116,7 @@ billAmountInput.addEventListener("keydown", (e) => {
     e.keyCode == 8 ||
     (e.keyCode >= 48 && e.keyCode <= 57)
   ) {
-    checkAll(billAmountInput.value, numberOfPeopleInput.value);
+    checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
   } else {
     e.preventDefault();
   }
@@ -109,27 +128,29 @@ numberOfPeopleInput.addEventListener("keyup", (e) => {
     e.keyCode == 8 ||
     (e.keyCode >= 48 && e.keyCode <= 57)
   ) {
-    if (numberOfPeopleInput.value == "") {
-      numberOfPeopleInput.classList.remove("invalid");
-      document
-        .querySelector(".numberOfPeople > .InputName >span")
-        .classList.remove("invalid");
-    } else if (Number(numberOfPeopleInput.value) == 0) {
-      numberOfPeopleInput.classList.add("invalid");
-      document
-        .querySelector(".numberOfPeople > .InputName >span")
-        .classList.add("invalid");
-    } else {
-      numberOfPeopleInput.classList.remove("invalid");
-      document
-        .querySelector(".numberOfPeople > .InputName >span")
-        .classList.remove("invalid");
-    }
-    checkAll(billAmountInput.value, numberOfPeopleInput.value);
+    toggleInvalidClass();
+    checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
   } else {
     e.preventDefault();
   }
 });
+
+function toggleInvalidClass() {
+  let numberOfPeopleInputBefore = document.querySelector(
+    ".numberOfPeople > .InputName >span"
+  );
+
+  if (numberOfPeopleInput.value == "") {
+    numberOfPeopleInput.classList.remove("invalid");
+    numberOfPeopleInputBefore.classList.remove("invalid");
+  } else if (Number(numberOfPeopleInput.value) == 0) {
+    numberOfPeopleInput.classList.add("invalid");
+    numberOfPeopleInputBefore.classList.add("invalid");
+  } else {
+    numberOfPeopleInput.classList.remove("invalid");
+    numberOfPeopleInputBefore.classList.remove("invalid");
+  }
+}
 
 resetBtn.addEventListener("click", () => {
   let calculations = document.querySelector(".calculations");
