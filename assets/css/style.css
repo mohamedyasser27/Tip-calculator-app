@@ -75,6 +75,28 @@ main {
 .tipAmountArea {
   width: 100%;
 }
+#billAmountInput {
+  appearance: textfield;
+}
+
+#numberOfPeopleInput.invalid {
+  outline: 2px solid red;
+}
+
+.InputName {
+  display: flex;
+  justify-content: space-between;
+}
+
+.InputName > span {
+  display: none;
+}
+
+.numberOfPeople > .InputName > span.invalid {
+  display: initial;
+
+  color: red;
+}
 
 .InputName {
   color: var(--Dark_grayish_cyan);
@@ -165,14 +187,16 @@ main {
   background-color: var(--Very_light_grayish_cyan);
   color: var(--Very_dark_cyan);
   direction: rtl;
-  text-indent: 10px;
 }
+
 .customTipAmount:focus:hover {
   cursor: initial;
 }
 
 .customTipAmount::placeholder {
-  color: var(--Dark_grayish_cyan);
+  color: var(--Very_dark_cyan);
+  text-align: center;
+  text-transform: capitalize;
 }
 
 /*results*/
@@ -213,14 +237,19 @@ main {
   text-transform: uppercase;
 }
 
-.resetBtn:hover {
+.resetBtn:disabled {
+  cursor: initial;
+  opacity: 0.3;
+}
+
+.resetBtn:not(:disabled):hover {
   background-color: var(--Light_grayish_cyan);
 }
 
-main{
+main {
   gap: 45px;
 }
-main .logo{
+main .logo {
   transform: translateY(20px);
 }
 
@@ -232,7 +261,6 @@ main .logo{
     gap: 45px;
     max-width: 650px;
     width: 90%;
-  padding: 20px;
-
+    padding: 20px;
   }
 }

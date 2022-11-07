@@ -26,13 +26,13 @@
     <main>
       <img src="./assets/images/logo.svg" alt="logo" class="logo" />
       <section class="tipCalculator">
-        <section class="calculations">
+        <form class="calculations">
           <article class="billAmountArea">
             <p class="InputName">Bill</p>
             <section class="inputComponent">
               <input
                 placeholder=""
-                type="text"
+                type="number"
                 name="billAmountInput"
                 id="billAmountInput"
                 autocomplete="off"
@@ -52,27 +52,34 @@
               <button class="tipAmountBtn" value="15">15%</button>
               <button class="tipAmountBtn" value="25">25%</button>
               <button class="tipAmountBtn" value="50">50%</button>
-              <input class="customTipAmount" type="text" placeholder="custom" />
+              <input
+                class="customTipAmount"
+                autocomplete="off"
+                type="text"
+                placeholder="custom"
+              />
             </section>
           </article>
 
           <article class="numberOfPeople">
-            <p class="InputName">Number of People</p>
+            <p class="InputName">
+              Number of People <span>Can't be Zero</span>
+            </p>
             <section class="inputComponent">
               <input
                 placeholder=""
                 type="text"
-                name="billAmountInput"
-                id="billAmountInput"
+                name="numberOfPeopleInput"
+                id="numberOfPeopleInput"
                 autocomplete="off"
               />
-              <label for="billAmountInput">
+              <label for="numberOfPeopleInput">
                 <img src="./assets/images/icon-person.svg" alt="" />
                 <span>0</span>
               </label>
             </section>
           </article>
-        </section>
+        </form>
         <section class="results">
           <article class="valueArea" id="TipAmountValue">
             <p class="title">Tip Amount<br /><span>/ person</span></p>
@@ -82,7 +89,7 @@
             <p class="title">Total<br /><span>/ person</span></p>
             <p class="Amount">&#36;0.00</p>
           </article>
-          <button class="resetBtn">reset</button>
+          <button  disabled class="resetBtn">reset</button>
         </section>
       </section>
     </main>
