@@ -40,7 +40,7 @@ const domManipulationModule = (function () {
     }
   }
 
-  function selectTipAmount(target) {
+  function selectTipAmountOnDom(target) {
     if (selectedPercentage == null) {
       selectedPercentage = target;
       target.classList.add("selected");
@@ -51,20 +51,10 @@ const domManipulationModule = (function () {
     }
   }
 
-  function showTipAmountOnDOM(tipAmount, total) {
-    document.querySelector(
-      "#TipAmountValue .Amount"
-    ).textContent = `$${tipAmount.toFixed(2)}`;
-
-    document.querySelector(
-      "#perPersonValue .Amount"
-    ).textContent = `$${total.toFixed(2)}`;
-  }
-
   alltipSelectors.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      selectTipAmount(e.target);
+      selectTipAmountOnDom(e.target);
       checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
       customTipAmount.value = "";
     });
@@ -76,12 +66,22 @@ const domManipulationModule = (function () {
       e.key.search(/[0-9]/) == 0 ||
       e.key.search(/Backspace/) == 0
     ) {
-      selectTipAmount(e.target);
+      selectTipAmountOnDom(e.target);
       checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
     } else {
       e.preventDefault();
     }
   });
+
+  function showTipAmountOnDOM(tipAmount, total) {
+    document.querySelector(
+      "#TipAmountValue .Amount"
+    ).textContent = `$${tipAmount.toFixed(2)}`;
+
+    document.querySelector(
+      "#perPersonValue .Amount"
+    ).textContent = `$${total.toFixed(2)}`;
+  }
 
   billAmountInput.addEventListener("keydown", (e) => {
     if (
@@ -89,7 +89,10 @@ const domManipulationModule = (function () {
       e.key.search(/[0-9]/) == 0 ||
       e.key.search(/Backspace/) == 0
     ) {
-      checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
+      checkAllInputExistence(
+        billAmountInput.value + e.key,
+        numberOfPeopleInput.value
+      );
     } else {
       e.preventDefault();
     }
@@ -97,26 +100,33 @@ const domManipulationModule = (function () {
 
   numberOfPeopleInput.addEventListener("keydown", (e) => {
     if (
-      e.key.search(/\./) == 0 ||
-      e.key.search(/[0-9]/) == 0 ||
-      e.key.search(/Backspace/) == 0
+      e.key.search(/\./) != 0 ||
+      e.key.search(/[0-9]/) != 0 ||
+      e.key.search(/Backspace/) != 0
     ) {
-      toggleInvalidClass();
-      checkAllInputExistence(billAmountInput.value, numberOfPeopleInput.value);
+      /*beacuse it doesn't add the new charchter in keydown event 
+      and we need keydown to prevent typing non-numerical values */
+      let numOfPeopleRealValue;
+      if (e.key == "Backspace") {
+        numOfPeopleRealValue = numberOfPeopleInput.value.split("");
+        numOfPeopleRealValue.pop();
+        numOfPeopleRealValue = numOfPeopleRealValue.join("");
+      } else {
+        numOfPeopleRealValue = numberOfPeopleInput.value + e.key;
+      }
+      toggleInvalidClass(numOfPeopleRealValue);
+      checkAllInputExistence(billAmountInput.value, numOfPeopleRealValue);
     } else {
       e.preventDefault();
     }
   });
 
-  function toggleInvalidClass() {
+  function toggleInvalidClass(value) {
     let numberOfPeopleInputBefore = document.querySelector(
       ".numberOfPeople > .InputName >span"
     );
-
-    if (numberOfPeopleInput.value == "") {
-      numberOfPeopleInput.classList.remove("invalid");
-      numberOfPeopleInputBefore.classList.remove("invalid");
-    } else if (Number(numberOfPeopleInput.value) == 0) {
+    if (value == 0 && value != "") {
+      checkAllInputExistence(billAmountInput, numberOfPeopleInput);
       numberOfPeopleInput.classList.add("invalid");
       numberOfPeopleInputBefore.classList.add("invalid");
     } else {
